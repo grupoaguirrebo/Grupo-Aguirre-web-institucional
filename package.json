@@ -1,0 +1,15 @@
+{
+  "name": "grupo-aguirre-web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "build": "node scripts/build-static.mjs && node scripts/prepare-sites-build.mjs",
+    "preview": "node scripts/dev-server.mjs",
+    "test": "node --test tests/site-content.test.mjs",
+    "test:sites": "node --test tests/sites-worker.test.mjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
