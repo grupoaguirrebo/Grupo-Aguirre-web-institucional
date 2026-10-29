@@ -1,5 +1,7 @@
 name: Prueba aislada PostgreSQL
 on:
+  pull_request:
+    paths: [.github/workflows/postgres-aislado.yml]
   push:
     branches: [test/postgres-aislado-20261029]
     paths: [.github/workflows/postgres-aislado.yml]
