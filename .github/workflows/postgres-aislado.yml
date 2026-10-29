@@ -1,0 +1,42 @@
+name: Prueba aislada PostgreSQL
+on:
+  pull_request:
+    paths: [.github/workflows/postgres-aislado.yml]
+  push:
+    branches: [test/postgres-aislado-20261029]
+    paths: [.github/workflows/postgres-aislado.yml]
+permissions: {}
+jobs:
+  aislamiento:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: synthetic-only
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U test -d test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - name: Comprobar PostgreSQL temporal con datos ficticios
+        env:
+          PGPASSWORD: synthetic-only
+        run: |
+          psql --host=localhost --username=test --dbname=test --set=ON_ERROR_STOP=1 <<'SQL'
+          CREATE TABLE synthetic_check (id integer PRIMARY KEY);
+          INSERT INTO synthetic_check VALUES (1);
+          DO $$
+          BEGIN
+            IF (SELECT count(*) FROM synthetic_check) <> 1 THEN
+              RAISE EXCEPTION 'Synthetic database test failed';
+            END IF;
+            RAISE NOTICE 'Synthetic PostgreSQL test passed';
+          END $$;
+          SQL
