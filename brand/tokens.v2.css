@@ -1,0 +1,12 @@
+/*
+ * Grupo Aguirre · Identidad V2 (2026-11-26).
+ * Paleta aprobada por fundador. Archivo de propuesta, no conectado a producción.
+ * NO modificar presupuestos, pagos, campañas o estado de publicación desde este archivo.
+ */
+:root {
+  --ga-forest: #164B36; /* verde bosque, primario */
+  --ga-ivory: #F3F0E7;  /* marfil cálido, secundario */
+  --ga-amber: #CB923D;  /* ámbar tierra, acento */
+  --ga-white: #FFFFFF;
+  --ga-text: #193529;   /* candidato para lectura, revisar contraste */
+}
